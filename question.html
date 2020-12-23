@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>히카루로부터</title>
+    <script src="https://unpkg.com/vue@2.5.22/dist/vue.js"></script>
+    <link rel="stylesheet" href="./theme.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!--container-->
+<section class="container">
+
+	<!--questionBox-->
+	<div class="questionBox" id="app">
+
+		<!-- transition -->
+		<transition :duration="{ enter: 500, leave: 300 }" enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in">
+
+			<!--qusetionContainer-->
+			<div class="questionContainer" v-if="questionIndex<quiz.questions.length" v-bind:key="questionIndex">
+
+				<header>
+					<h1 class="title is-6">히카루로부터</h1>
+					<!--progress-->
+					<div class="progressContainer">
+						<progress class="progress is-info is-small" :value="(questionIndex/quiz.questions.length)*100" max="100">{{(questionIndex/quiz.questions.length)*100}}%</progress>
+					</div>
+					<!--/progress-->
+				</header>
+
+				<!-- quizOptions -->
+            <div id="app" v-cloak>
+
+              <div class="row">
+
+                  <div class="callout">
+
+                    <div v-for="(question, index) in quiz.questions" :key="index" class="questions">
+                      <!-- Hide all questions, show only the one with index === to current question index -->
+                      <div v-show="index === questionIndex">
+                        <h3 class="questionTitle">{{ question.text}}</h3>
+                        <ol>
+                          <!-- for each response of the current question -->
+                         <div class="optionContainer">
+				         <div class="option" v-for="(response, index) in quiz.questions[questionIndex].responses" @click="selectOption(index)" :class="{ 'is-selected': userResponses[questionIndex] == index}" :key="index" v-on:click="next">
+                                   {{ response.text}}
+                          </div>
+                          </div> 
+
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                <!-- /quizOptions -->
+
+                </div>
+             </div>
+				<!--quizFooter: navigation and progress-->
+				<footer class="questionFooter">
+
+					<!--pagination-->
+					<nav class="pagination" role="navigation" aria-label="pagination">
+
+					</nav>
+					<!--/pagination-->
+
+				</footer>
+				<!--/quizFooter-->
+
+			</div>
+			<!--/questionContainer-->
+
+			<!--quizCompletedResult-->
+            <div class="quizCompleted" id="app" v-cloak>
+                <h3 class="present">히카루의 선물은,</h3>
+                
+                
+                <!-- result 1 -->
+                <template v-if="[1060, 1070, 1080, 1090, 1100].includes(TotalValue())">
+                    <h3 class="presentTitle">선생님을 닮은 눈사람</h3>
+                    <br>
+                    <img src="./assets/resultOne.png" alt="resultOne" width="170px" height="170px"/>
+                    <br>
+                    <h3 class="letterTitle">선생님께 드리는 편지</h3>
+                    <p class="letter">
+                        해진 선생님 前
+                        <br>
+                        <br>
+                        선생님, 안온한 성탄 보내고 계신지요. 일전에 눈이 왔던 날 뛰노는 아해들의 소리에 이끌려 나가서는 문득 이런 것을 만들고 말았지 무엇입니까. 조악한 선물입니다만, 완성된 모습이 퍽 선생님의 모습을 닮아 성탄을 기념하여 동봉합니다. 도착하는 여정까지 부디 녹지 않고 온전한 모습을 유지하고 있기를 바라지요. 짙은 새벽까지 공상에 젖으며 모두가 즐거운 나날 깊게 가라앉지는 마시구요. 금일은 당신께서 즐거움에 이끌릴 수 있도록 제가 손을 내밀어볼까요.
+                    </p>
+                    <p class="letter">
+                        추신, 목도리는 직접 만들어보았습니다. 제법 길이가 있으니 풀어 햇볕에 잘 말린다면 선생님께서 직접 사용하실 수 있을지도 모르겠습니다. 따뜻한 겨울 보내시어요.
+                        <br>
+                        <br>
+                        光。
+                    </p>
+                    <hr height="5px" color="#74a33d">
+                    <p class="share">결과 공유하기</p>
+                    <!-- Sharingbutton Twitter -->
+                    <a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                      <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                        </div>
+                      </div>
+                    </a>
+                </template>
+                
+                <!-- result 2 -->
+                <template v-if="[1110, 1120, 1130, 1140, 1150].includes(TotalValue())">
+                <h3 class="presentTitle">저 산의 꽃</h3>
+                <br>
+                <img src="./assets/resultTwo.png" alt="resultTwo" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">선생님께 드리는 편지</h3>
+                <p class="letter">
+                    해진 선생님 前
+                    <br>
+                    <br>
+                    산보를 하던 적에 이 추운 겨울에도 꽃이 피어있는 것을 마주하였습니다. 그 모습이 어찌나 당당하고 어여쁘던지, 한기를 이겨내며 피어있는 생명의 목숨을 앗아가는 것에 대한 일말의 죄책감도 느끼지 않으며 몇 송이 꺾어버리고 말았습니다. 뒤늦게야 조금 더 오래, 창창히 피어있을 운명이었던 것의 숨을 끊어버렸구나, 하며 미안함을 느꼈는지도요. 저 산의 꽃을, 동봉합니다. 말라버릴 것이라면 차라리 압화가 되는 편이 나을 터라 판단한 덕에 두터운 책 사이에 끼워둡니다. 조그마한 선물이라 하지요.
+                    </p>
+                <p class="letter">
+                    이른 봄에 싹이 돋으면, 꽃 향기 한번 보내주시겠어요. 그것으로 우리가 같은 계절을 바라보고 있노라 느낄 수 있을 듯합니다. 즐거운 성탄 보내시구요.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 3 -->
+                <template v-if="[1160, 1170, 1180, 1190, 1200].includes(TotalValue())">
+                <h3 class="presentTitle">즐겨듣는 음반</h3>
+                <br>
+                <img src="./assets/resultThree.png" alt="resultThree" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">선생님께 드리는 편지</h3>
+                <p class="letter">
+                    해진 선생님 前
+                    <br>
+                    <br>
+                    성탄을 기념하며 이런저런 음악들이 거리에서 들려오곤 합니다. 듣다보니 퍽 마음에 드는 것이 있어 한 장의 음반을 구매하였는데, 선생님께도 선물하고 싶은 마음이 일더군요. 어떤 곡이 들릴지는 직접 감상해보시겠어요. 듣고 계시노라면 영감이 똑 떨어져 글줄이 술술 적히게 될지도 모르지요. 이번의 서간 역시 그 음악과 함께하고 있습니다. 제게는 다소 이른 성탄입니다만, 선생님 손에 닿을 적에는 시기가 적절하여 주변의 분위기와도 잘 어울렸으면 하는 바람을 살포시 담아요.
+                    </p>
+                <p class="letter">
+                    추신. 음악의 제목이 궁금하시다면 후일 제게 여쭤주시겠어요.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 4 -->
+                <template v-if="[1210, 1220, 1230, 1240].includes(TotalValue())">
+                <h3 class="presentTitle">섬세한 히카루 인형</h3>
+                <br>
+                <img src="./assets/resultFour.png" alt="resultFour" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">선생님께 드리는 편지</h3>
+                <p class="letter">
+                    해진 선생님 前
+                    <br>
+                    <br>
+                    모두가 들뜨는 날이라는 것이 저 역시 들뜨게 한 것인지, 선생님께 어떤 선물을 드리면 좋을까 제법 고민을 하였습니다. 초상은 퍽 진부하기에 직접 만져볼 수 있는 것을 준비하였어요. 태엽을 감으면 빙글빙글 돌아가는 인형이랍니다. 저는 당신만의 것이니, 이 자그마한 저의 복제품 역시 선생님만을 위한 물건입니다. 서간에 종종 이 아이의 근황을 남겨주시겠어요. 그렇담 제법 기쁘게 여길 텝니다. 빛이 언제나 선생님의 탁상 위에서 지켜보고 있을 것이어요. 다음 글자를 기다립니다.
+                    </p>
+                <p class="letter">
+                    추신. 다음 번에는 폭신폭신한 솜인형을 준비해볼까요. 아무래도 태엽 인형은 따뜻함이 없지요?
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 5 -->
+                <template v-if="[2160, 2170, 2180, 2190, 2200].includes(TotalValue())">
+                <h3 class="presentTitle">잉크와 펜</h3>
+                <br>
+                <img src="./assets/resultFive.png" alt="resultFive" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">반쪽에게 보내는 편지</h3>
+                <p class="letter">
+                    세훈 前
+                    <br>
+                    <br>
+                    네게 편지를 쓰는 일은 아주 드물어 평소보다도 더 신경을 쓰게 되는 것 같아. 선생님들은 성탄이라구 무어 특별한 것을 준비하고 계시니? 하나뿐인 아해라구 어여삐 여거주실 테잖아. 나두 소중한 반쪽에게 자그마한 선물을 준비했어. 붉은 잉크가 쏙 마음에 들었거든. 혈서까지 쓰다니!
+                    <br>
+                    농담이구, 성탄에 어울리는 색상이어서 골랐어. 글을 쓸 때는 영 사용하기 힘들 듯하니 어찌보면 무용지물인 선물일지는 모르겠지만. 새로운 펜도 같이 두었어. 마음에 들었으면 하여.
+                    </p>
+                <p class="letter">
+                    추신, 색이 마음에 안 들어두 그냥 받아줘. 내 마음이 담겨있잖아. 보면 볼수록 어디서 피를 쪽 모아온 것 같지만, 나 그런 일까지는 하지 않아.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 6 -->
+                <template v-if="[2110, 2120, 2130, 2140, 2150].includes(TotalValue())">
+                <h3 class="presentTitle">해진 선생님 인형</h3>
+                <br>
+                <img src="./assets/resultSix.png" alt="resultSix" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">반쪽에게 보내는 편지</h3>
+                <p class="letter">
+                    세훈 前
+                    <br>
+                    <br>
+                    네가 좋아하는 것들을 여러가지 나열해보았는데, 역시 그 중 제일은 해진 선생님인 듯하여 반쪽이 힘을 내었어. 한손에 쏙 들어오는 해진 선생님 인형이야. 선생님께서 보시면 퍽 이상한 눈초리를 하실 테니... 잘 숨겨두어. 말랑말랑한 촉감이 좋아 종일 손에 쥐고 있게 될걸? 글만 썼지, 이런 것을 만드는 것은 처음이라 제법 고생을 하였어. 그럼에도 꿋꿋하게 완성한 마음이 얼마나 너를 아끼고 있는지 증명할 테지.
+                    </p>
+                <p class="letter">
+                    추신, 요즈음 네 손가락이 아프구, 이유 모를 상처들이 늘었다면 내 탓일 거야. 그으, 바느질은 어렵더라구. 내 노력을 보구 용서해주기야.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 7 -->
+                <template v-if="[2060, 2070, 2080, 2090, 2100].includes(TotalValue())">
+                <h3 class="presentTitle">히카루가 읽어주는 책</h3>
+                <br>
+                <img src="./assets/resultSeven.png" alt="resultSeven" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">반쪽에게 보내는 편지</h3>
+                <p class="letter">
+                    세훈 前
+                    <br>
+                    <br>
+                    엄마가 읽어주던 책들을 다시 찾는 것은 아무래도 힘들 것 같아서, 추억을 상기해볼까 하여 준비하였어. 내가 엄선한 책들 몇 권이야. 분명 네 마음에도 쏙 들걸? 어렸을 적의 기억을 되살려, 우리 잠들기 전에 머리맡에 두면 내가 조금씩 읽어줄까 하는 생각이지. 무어, 아해 취급이 싫다면야 네 스스로 읽어두 상관은 없지만. 조금 섭섭할지두 몰라. 이렇게나 많으니 얼마간은 심심할 일이 없을 테야. 새해에도 아름다운 문장에 취할 수 있겠지.
+                    </p>
+                <p class="letter">
+                    추신, 내가 읽어주기를 정말, 진심으로 바란다면 이야기하기야. 엄마의 흉내를 내어볼게.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 8 -->
+                <template v-if="[2210, 2220, 2230, 2240].includes(TotalValue())">
+                <h3 class="presentTitle">해진 선생님의 안경</h3>
+                <br>
+                <img src="./assets/resultEight.png" alt="resultEight" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">반쪽에게 보내는 편지</h3>
+                <p class="letter">
+                    세훈 前
+                    <br>
+                    <br>
+                    좋아하는 사람을 보면 왜인지 뭐든 따라하고 싶어지지 않니. 그리하여 고민해본 것인데, 아무리 생각하여도 해진 선생님의 상징은 안경인 듯하여. 네가 쓴다면 아주 귀여울 테지! 이윤 선생님도 물론 비슷한 안경을 쓰고 계시기야 하지만, 이건 해진 선생님을 따라한 거야. 이윤 선생님이 아니라. 종종 쓰고 거울을 보면 기분이 좋아지지 않겠어, 세훈아. 반쪽의 변화를 기대해볼게.
+                    </p>
+                <p class="letter">
+                    추신, 선생님께서 '세훈아, 이게 무슨 안경이니?' 하시면, '안경을 쓰니까 왠지 작가가 된 기분이 들어요!' 하고 대답해보아. 어떻게 대답하실지 퍽 궁금해서.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 9 -->
+                <template v-if="[3060, 3070, 3080, 3090, 3100].includes(TotalValue())">
+                <h3 class="presentTitle">손톱달 책갈피</h3>
+                <br>
+                <img src="./assets/resultNine.png" alt="resultNine" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">거울에게 보내는 편지</h3>
+                <p class="letter">
+                    光 前
+                    <br>
+                    <br>
+                    안온한 하루 보내고 있니. 나와 같은 이의 선물을 준비하는 것은 쉬우면서도 어려웠어. 같을수록 더 알기 힘들다는 느낌을 알아? 무엇보다, 내가 성탄을 떠올리는 마음만큼 네가 성탄을 떠올릴까 하는 확신이 없었기에. 아무렴, 그러하여도 너와 나 모두 독서를 퍽 사랑하지 않니. 달은 꼭 우리의 모습을 닮았구. 나는 보름의 둥근 달보다는 희미한 빛을 내는 손톱달이 좋더라. 기억하고 싶은 페이지에 끼워두어.
+                    </p>
+                <p class="letter">
+                    추신, 마음에 드는 곳에 책갈피를 꽂아두었다면 그 곳의 문장을 내게도 나누어주어. 그렇담 아주 기쁠 테야.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 10 -->
+                <template v-if="[3110, 3120, 3130, 3140, 3150].includes(TotalValue())">
+                <h3 class="presentTitle">산골의 꽃차</h3>
+                <br>
+                <img src="./assets/resultTen.png" alt="resultTen" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">거울에게 보내는 편지</h3>
+                <p class="letter">
+                    光 前
+                    <br>
+                    <br>
+                    추운 겨울에는 소복하게 쌓이는 눈을 바라보며 따뜻한 차를 마시는 것이 나의 즐거움이야. 가끔은 과일차나 꽃차 같은 부드러운 것들이 끌릴 때가 있지 않니. 고향을 느낄 수 있는 향이라면 믿을 수 있을까? 보라색은 특히나 신비한 색상이니. 초목의 내음새까지도 특수한 산골을 떠올려보아. 하루 몇 잔 정도의 차는 몸에도 제법 좋다 하니, 우리의 폐가 조금은 더 버틸 수 있을지도 모르겠어.
+                    </p>
+                <p class="letter">
+                    추신, 아무래도 초록색 차는 녹차의 이미지가 강하여 초목을 담지는 못하였어. 기왕이면 특이하고 특별한 편이 기억에 남으니.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 11 -->
+                <template v-if="[3160, 3170, 3180, 3190, 3200].includes(TotalValue())">
+                <h3 class="presentTitle">영감이 떠오를 만년필</h3>
+                <br>
+                <img src="./assets/resultEleven.png" alt="resultEleven" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">거울에게 보내는 편지</h3>
+                <p class="letter">
+                    光 前
+                    <br>
+                    <br>
+                    글을 쓰다보면 종종 문방구의 중요성을 깨닫곤 하여. 같은 환경에서도 왠지 모르게 영감이 더 잘 떠오르고, 무언가 써지는 도구가 있잖아. 특히나 누군가에게 선물받은 것들은 감성이 담겨서 그런 탓인가, 더욱 효과가 큰 듯하지. 우리의 운명은 끊임없이 글을 쓸 것을 요구하니 이런 물건 하나즈음 있어두 좋지 않겠어? 언제나 너의 문장들을 아끼고 있어.
+                    </p>
+                <p class="letter">
+                    추신, 만년필의 장점이라 해야할까, 하는 것은 혈서를 쓰기 힘들다는 점이지. 아무래도.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 12 -->
+                <template v-if="[3210, 3220, 3230, 3240].includes(TotalValue())">
+                <h3 class="presentTitle">따뜻한 몽실 귀도리</h3>
+                <br>
+                <img src="./assets/resultTwelve.png" alt="resultTwelve" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">거울에게 보내는 편지</h3>
+                <p class="letter">
+                    光 前
+                    <br>
+                    <br>
+                    요즈음 날이 아주 추워. 이러다가는 꽁꽁 얼어버릴지두 모르지. 내쉬는 숨마다 동그랗게 구름을 만드는 것을 구경하다보면 귀가 시린 것도 까먹기야 하지만. 찹쌀떡 같은 네가 포근한 겨울을 보낼 수 있게, 솜털이 몽실몽실한 귀도리를 보내. 부드럽고 따뜻하여 선생님께서 마음대로 등단을 시켜버려두 모두 용서할 수 있을 만큼 기분이 좋을걸! 춥지 않은 겨울 보내구, 즐거운 성탄이 되기를.
+                    </p>
+                <p class="letter">
+                    추신, 혹시 소리가 안 들릴 만큼 두텁다면 이야기해주어. 새로운 귀도리를 찾아볼게.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 13-->
+                <template v-if="[4110, 4120, 4130, 4140, 4150].includes(TotalValue())">
+                <h3 class="presentTitle">악몽을 잡아줄 드림캐처</h3>
+                <br>
+                <img src="./assets/resultThirteen.png" alt="resultThirteen" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">독자님께 보내는 편지</h3>
+                <p class="letter">
+                    독자님 前
+                    <br>
+                    <br>
+                    밤은 편안히 보내고 계신지요. 간혹 잠들기 싫은 밤이 있지요. 혹은 두려운 밤도 있을 테구요. 저는 언제고 모두의 창밖에 있기야 합니다만. 성탄에 늦게 잠드는 것은 기대가 깊은 탓일까요? 종일 그 즐거움이 끊이지 않기를 마음 깊이 바라고 있습니다. 꿈은 퍽 신기한 세계이기에 바라는 모든 것들을 이룰 수 있지요. 달큰한 꿈을 선물할 장식품을 머리맡에 두고 갑니다. 빛은 어디에든 있으니까요.
+                    </p>
+                <p class="letter">
+                    추신, 혹 악몽을 보셨다면 그것은 유령 같은 것이 아니라 잠시 피곤에 지친 빛의 형상이니 너무 두려워는 마시어요. 그저 오늘도 여럿 사람의 꿈에 들르느라 바쁜 이가 있구나, 여겨주십시오.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 14-->
+                <template v-if="[4060, 4070, 4080, 4090, 4100].includes(TotalValue())">
+                <h3 class="presentTitle">하루를 적는 일기장</h3>
+                <br>
+                <img src="./assets/resultFourteen.png" alt="resultFourteen" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">독자님께 보내는 편지</h3>
+                <p class="letter">
+                    독자님 前
+                    <br>
+                    <br>
+                    종종 보아하면, 글을 쓰는 일은 우리의 일상에 깊이 들어찬 듯합니다. 개인적인 생각입니다만, 감상을 적는 것으로부터 문학이 출발하지 않을까 하여요. 가장 쉬운 방법은 역시 하루를 정리하는 일일까요. 버릇처럼 적다보면 그것도 훌륭한 수필이 되곤 할 테지요. 독자님의 일상이 퍽 궁금하답니다. 금일은 어떤 하루를 보내었을까, 무엇을 느꼈을까. 성탄은 어떠셨을까. 개의치 않으시다면 이따금씩 이야기해주시겠어요?
+                    </p>
+                <p class="letter">
+                    추신, 일기를 빼곡히 채우려 강박을 느끼지 않으셨음 하여요. 빈 자리는 비어있는 나름대로 그 날의 기록이지 않겠습니까.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 15-->
+                <template v-if="[4160, 4170, 4180, 4190, 4200].includes(TotalValue())">
+                <h3 class="presentTitle">히카루 거울</h3>
+                <br>
+                <img src="./assets/resultFifteen.png" alt="resultFifteen" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">독자님께 보내는 편지</h3>
+                <p class="letter">
+                    독자님 前
+                    <br>
+                    <br>
+                    언제고 저를 지켜봐주시는 독자님이시라면 쉬이 아실 수 있듯, 거울은 상징 같은 것이 아니겠어요. 분명 한 번 정도는 탐을 내신 적이 있지 않을까 하였지요. 편집실의 것은 너무 거대하기도 하며, 갑자기 사라질 경우 의심을 사기 딱 좋으니, 아기자기함을 겸비한 것으루 준비하였습니다. 바깥에 나가기는 부적절한 성탄입니다만, 눈 앞에 두고 왈츠를 한번 춰보시겠어요. 선생님의 빛을 만날 수 있을지두 모르지요.
+                    </p>
+                <p class="letter">
+                    추신, 나타난 빛이 무섭다고 손등을 쿡 찔러버리지는 마시구요. 종이에 베인 것두 아프지만 펜에 찔린 것은 더욱 아픕니다.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 16-->
+                <template v-if="[4210, 4220, 4230, 4240].includes(TotalValue())">
+                <h3 class="presentTitle">편집실향 향초</h3>
+                <br>
+                <img src="./assets/resultSixteen.png" alt="resultSixteen" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">독자님께 보내는 편지</h3>
+                <p class="letter">
+                    독자님 前
+                    <br>
+                    <br>
+                    금일의 편집실도 역시 종이 향과 잉크의 향이 짙네요. 다른 점이 있다면, 겨울의 내음새를 머금어 조금은 가볍고 눅눅하다는 점일까요. 성탄이라 하여도 큰 변화는 없는 듯합니다. 언제나 그러하듯 글을 쓰고, 글을 읽지요. 혹은 마감이 싫다며 마냥 미루고 술을 찾는 선생님들께서도 계시지만요. 익숙한 풍경을 타인에게 전하는 일은 처음인지라 잘 도착할지는 영 자신이 없습니다. 차라리 글로 적어내라면 그런 편이 쉽지요. 선생님께서두 봄이 곧 찾아올 이곳의 일부를 함께하시겠어요.
+                    </p>
+                <p class="letter">
+                    추신, 명일일보의 향이 난다 하여 마감에 쫓기지는 마시구요. 아무쪼록 할 일은 미리미리 끝내두는 편이 좋겠습니다.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 17-->
+                <template v-if="[5060, 5070, 5080, 5090, 5100, 5110, 5120].includes(TotalValue())">
+                <h3 class="presentTitle">술병 술잔 세트</h3>
+                <br>
+                <img src="./assets/resultSeventeen.png" alt="resultSeventeen" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">선생님께 보내는 편지</h3>
+                <p class="letter">
+                    선생님 前
+                    <br>
+                    <br>
+                    간만의 휴일에 선생님들께서 즐거운 마음으로 취하실 것이라는 사실은 보지 않아도 뻔한 사실이겠지요. 그리 내키지는 않습니다만, 즐기실 것이라면 미美를 더하야 즐기시라는 뜻에 어여쁜 도자기 술잔과 술병을 보냅니다. 내용은 당연하게두 비어있으니, 채우시는 것은 선생님의 몫이지요. 마시고 즐기는 것 역시 중요하지만, 꼭 건강하지 않은 몸을 가진 분들께서 안 좋은 것을 더욱 선호하십니다. 그저 해진 선생님만을 보구 보내드리는 것이니 이것을 빌미로 '알코올로 소독을 하는 것이다' 같은 주장을 펼치지는 마시어요.
+                    </p>
+                <p class="letter">
+                    추신, 사람 수에 맞지 않는 것은 실수가 아닙니다. 그래두 한두 분은 멀쩡한 정신이어야 편집실이 돌아가지 않겠어요.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 18-->
+                <template v-if="[5130, 5140, 5150, 5160, 5170, 5180].includes(TotalValue())">
+                <h3 class="presentTitle">마감을 알리는 시계</h3>
+                <br>
+                <img src="./assets/resultEighteen.png" alt="resultEighteen" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">선생님께 보내는 편지</h3>
+                <p class="letter">
+                    선생님 前
+                    <br>
+                    <br>
+                    요즈음에도 태준 선생님께서 원고의 마감은 언제인가, 늘상 한숨을 폭폭 내쉰다는 소식을 잦게 듣고 있습니다. 뮤즈라는 이름을 가진 사람으로서 이를 그냥 두고볼 수는 없겠다, 하여 지난번 산보를 갔을 적에 하나 용의한 것이 있지요. 탁상 위에 알람 시계를 올려두면 제법 능률이 올라갑니다. 어찌 보면 한 분만 만족하실 선물 같기는 합니다만. 창작은 가혹한 것 아니겠어요. 다음 작품을 기대하고 있겠습니다.
+                    </p>
+                <p class="letter">
+                    추신, 해진 선생님께도 늘상 이러한가 의문이 드시겠지요. 걱정하시는대로 늘상 이러하니 잘 챙겨주시구요.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+                <!-- result 19-->
+                <template v-if="[5190, 5200, 5210, 5220, 5230, 5240].includes(TotalValue())">
+                <h3 class="presentTitle">만질 수 없는 쿼카</h3>
+                <br>
+                <img src="./assets/resultNineteen.png" alt="resultNineteen" width="170px" height="170px"/>
+                <br>
+                <h3 class="letterTitle">선생님께 보내는 편지</h3>
+                <p class="letter">
+                    선생님 前
+                    <br>
+                    <br>
+                    근래 들어 적적하지는 않으신지요. 아무렴, 아해 한 명이 있기야 하지만 이런 계절에는 괜히 감상적이게 되지 않나요. 하나 정도 귀여운 존재가 늘어난다면 편집실의 활기도 더하지 않을까 싶어 유명한 아해를 데려왔습니다. 다만, 만질 수는 없으니 눈으로만 귀여워해주시구요. 언제나 행복하게 웃는 것이 참 사랑스럽지 않습니까? 자세히 보면 누구를 닮은 듯도 하구요.
+                    </p>
+                <p class="letter">
+                    추신, 그래두 급사 아해가 외롭지 않게 어여삐 여겨주시어요. 퍽 서운해할지도 모르는 일이니.
+                    <br>
+                    <br>
+                    光。
+                </p>
+                <hr height="5px" color="#74a33d">
+                <p class="share">결과 공유하기</p>
+                <!-- Sharingbutton Twitter -->
+                <a class="resp-sharing-button__link" ref="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" target="_blank" rel="noopener" aria-label="">
+                  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+                    </div>
+                  </div>
+                </a>
+                </template>
+                
+				<p></p>
+				<a class="button" href="index.html">다시하기</a>
+				<!--/resultTitleBlock-->
+            </div>
+			<!--/quizCompetedResult-->
+
+		</transition>
+
+	</div>
+	<!--/questionBox-->
+
+</section>
+<!--/container-->
+<script type="text/javascript" src="script.js"></script>
+<script>
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #222222;
+  background-color: #7c2b2b;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+body,
+input,
+button {
+  font-family: "Muli", sans-serif, -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", Helvetica, sans-serif;
+  outline: none;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+a {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.questionBox {
+  max-width: 450px;
+  margin: 0 auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.questionContainer {
+  background-color: #7c2b2b;
+  padding: 50px;
+  color: #ffffff;
+  border-radius: 3px;
+}
+
+li {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+
+
+@media only screen and (max-width: 500px) {
+  .form-body {
+    padding: 50px 40px;
+  }
+}
+
+@media only screen and (max-width: 455px) {
+  .form-body {
+    padding: 45px 30px;
+  }
+}
+
+@media only screen and (max-width: 340px) {
+  .form-body {
+    padding: 30px 20px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .social-login ul {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+._or {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #d9d9d9;
+}
