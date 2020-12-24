@@ -347,13 +347,9 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        max-width: 500px;
+        max-width: 320px;
         background-attachment: fixed;
         position: relative;
-    }
-    .option {
-        display: flex;
-        align-items: center;
     }
 }
 }
