@@ -9,6 +9,7 @@
     text-align: center;
     font-size: 2.5em;
     color: #74a33d;
+    height: 100%;
 }
 
 .from {
@@ -50,6 +51,7 @@ body {
     font-family: "Jua", sans-serif;
     font-weight: normal;
     font-size: 2em;
+    min-height: 100%;
 }
 
 .animated {
@@ -57,7 +59,9 @@ body {
 }
 
 .container {
+    display: flex;
     margin: 0 0.5rem;
+    min-height: 100%;
 }
 
 .questionBox {
@@ -144,6 +148,7 @@ body {
     width: 100%;
     padding: 1rem;
     text-align: center;
+    max-height: 50%;
 }
 
 .questionBox .questionContainer {
@@ -234,8 +239,9 @@ body {
 .present {
     font-family: "Jua", sans-serif;
     text-align: center;
-    font-size: 1.3em;
+    font-size: 1.5em;
     color: #fff;
+    min-height: 100%;
 }
 
 .presentTitle {
