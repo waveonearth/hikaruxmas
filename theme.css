@@ -343,4 +343,34 @@ body {
         height: auto !important;
         border-radius: 6px 6px 0px 0px;
     }
+    .questionBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1024px;
+        background-attachment: fixed;
+        position: relative;
+    }
+    .option {
+        display: flex;
+        height: 55px;
+        align-items: center;
+        font-size: 1.2em;
+    }
+    .questionTitle {
+        font-size: 2.9em;
+    }
+    .title {
+        font-size: 2.9em;
+    }
+    .xMas {
+        font-size: 2.9em;
+    }
+    from {
+        font-size: 2.9em;
+    }
+    .button {
+        height: 55px
+    }
+}
 }
