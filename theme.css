@@ -347,30 +347,13 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        max-width: 100%;
+        max-width: 500px;
         background-attachment: fixed;
         position: relative;
     }
     .option {
         display: flex;
-        height: 55px;
         align-items: center;
-        font-size: 1.2em;
-    }
-    .questionTitle {
-        font-size: 2.9em;
-    }
-    .title {
-        font-size: 2.9em;
-    }
-    .xMas {
-        font-size: 2.9em;
-    }
-    from {
-        font-size: 2.9em;
-    }
-    .button {
-        height: 55px
     }
 }
 }
