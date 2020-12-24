@@ -61,9 +61,9 @@ body {
 }
 
 .questionBox {
-    max-width: 100%;
-    width: 100%;
-    min-height: 100%;
+    max-width: 30rem;
+    width: 30rem;
+    min-height: 30rem;
     background: #7c2b2b;
     position: relative;
     display: flex;
