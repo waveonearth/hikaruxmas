@@ -347,7 +347,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 1024px;
+        max-width: 100%;
         background-attachment: fixed;
         position: relative;
     }
