@@ -330,8 +330,10 @@ body {
 
 @media screen and (min-width: 1024px) {
     .questionBox {
+        display: flex;
         align-items: center;
         justify-content: center;
+        background-attachment: fixed;
     }
     .questionBox .questionContainer {
         display: flex;
@@ -345,15 +347,24 @@ body {
         border-radius: 6px 6px 0px 0px;
     }
     .questionBox {
+        display: flex;
         align-items: center;
         justify-content: center;
         min-width: 1024px;
+        background-attachment: fixed;
+        position: relative;
     }
     .option {
         display: flex;
-        height: 70px;
+        height: 55px;
         align-items: center;
-        font-size: 2em;
+        font-size: 1.2em;
+    }
+    .questionTitle {
+        font-size: 2.9em;
+    }
+    .title {
+        font-size: 2.9em;
     }
 }
 
@@ -363,15 +374,24 @@ body {
         border-radius: 6px 6px 0px 0px;
     }
     .questionBox {
+        display: flex;
         align-items: center;
         justify-content: center;
         min-width: 1024px;
+        background-attachment: fixed;
+        position: relative;
     }
     .option {
         display: flex;
-        height: 70px;
+        height: 55px;
         align-items: center;
-        font-size: 1.6em;
+        font-size: 1.2em;
+    }
+    .questionTitle {
+        font-size: 2.9em;
+    }
+    .title {
+        font-size: 2.9em;
     }
 }
 
@@ -381,15 +401,24 @@ body {
         border-radius: 6px 6px 0px 0px;
     }
     .questionBox {
+        display: flex;
         align-items: center;
         justify-content: center;
         min-width: 767px;
+        background-attachment: fixed;
+        position: relative;
     }
     .option {
         display: flex;
-        height: 60px;
+        height: 50px;
         align-items: center;
-        font-size: 1.4em;
+        font-size: 1.1em;
+    }
+    .questionTitle {
+        font-size: 2.8em;
+    }
+    .title {
+        font-size: 2.8em;
     }
 }
 
@@ -399,14 +428,23 @@ body {
         border-radius: 6px 6px 0px 0px;
     }
     .questionBox {
+        display: flex;
         align-items: center;
         justify-content: center;
         min-width: 480px;
+        background-attachment: fixed;
+        position: relative;
     }
     .option {
         display: flex;
-        height: 50px;
+        height: 40px;
         align-items: center;
-        font-size: 1.2em;
+        font-size: 1em;
+    }
+    .questionTitle {
+        font-size: 2.6em;
+    }
+    .title {
+        font-size: 2.6em;
     }
 }
