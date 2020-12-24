@@ -344,4 +344,11 @@ body {
         height: auto !important;
         border-radius: 6px 6px 0px 0px;
     }
+    .questionBox {
+        align-items: center;
+        justify-content: center;
+    }
+    .container {
+        max-height: 70%;
+    }
 }
