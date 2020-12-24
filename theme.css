@@ -347,8 +347,6 @@ body {
     .questionBox {
         align-items: center;
         justify-content: center;
-    }
-    .container {
-        max-height: 70%;
+        width: 768px;
     }
 }
