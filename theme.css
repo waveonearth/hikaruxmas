@@ -347,6 +347,6 @@ body {
     .questionBox {
         align-items: center;
         justify-content: center;
-        width: 768px;
+        min-width: 768px;
     }
 }
