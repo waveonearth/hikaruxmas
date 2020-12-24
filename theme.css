@@ -327,162 +327,20 @@ body {
   border-color: #2795e9;
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px) {
-    .sidebar {
-        height: auto !important;
-        border-radius: 6px 6px 0px 0px;
-    }
+@media screen and (min-width: 769px) {
     .questionBox {
-        display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 480px;
-        background-attachment: fixed;
-        position: relative;
-    }
-    .option {
-        display: flex;
-        height: 40px;
-        align-items: center;
-        font-size: 1em;
-    }
-    .questionTitle {
-        font-size: 2.6em;
-    }
-    .title {
-        font-size: 2.6em;
-    }
-    .xMas {
-        font-size: 2.6em;
-    }
-    from {
-        font-size: 2.6em;
-    }
-    .button {
-        height: 40px
-    }
-}
-
-@media screen and (min-width: 481px) and (max-width: 767px) {
-    .sidebar {
-        height: auto !important;
-        border-radius: 6px 6px 0px 0px;
-    }
-    .questionBox {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 767px;
-        background-attachment: fixed;
-        position: relative;
-    }
-    .option {
-        display: flex;
-        height: 50px;
-        align-items: center;
-        font-size: 1.1em;
-    }
-    .questionTitle {
-        font-size: 2.8em;
-    }
-    .title {
-        font-size: 2.8em;
-    }
-    .xMas {
-        font-size: 2.8em;
-    }
-    from {
-        font-size: 2.8em;
-    }
-    .button {
-        height: 50px
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-    .sidebar {
-        height: auto !important;
-        border-radius: 6px 6px 0px 0px;
-    }
-    .questionBox {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 1024px;
-        background-attachment: fixed;
-        position: relative;
-    }
-    .option {
-        display: flex;
-        height: 55px;
-        align-items: center;
-        font-size: 1.2em;
-    }
-    .questionTitle {
-        font-size: 2.9em;
-    }
-    .title {
-        font-size: 2.9em;
-    }
-    .xMas {
-        font-size: 2.9em;
-    }
-    from {
-        font-size: 2.9em;
-    }
-    .button {
-        height: 55px
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-    .sidebar {
-        height: auto !important;
-        border-radius: 6px 6px 0px 0px;
-    }
-    .questionBox {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 1024px;
-        background-attachment: fixed;
-        position: relative;
-    }
-    .option {
-        display: flex;
-        height: 55px;
-        align-items: center;
-        font-size: 1.2em;
-    }
-    .questionTitle {
-        font-size: 2.9em;
-    }
-    .title {
-        font-size: 2.9em;
-    }
-    .xMas {
-        font-size: 2.9em;
-    }
-    from {
-        font-size: 2.9em;
-    }
-    .button {
-        height: 55px
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .questionBox {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-attachment: fixed;
-        max-width: 30rem;
-        width: 30rem;
-        min-height: 30rem;
     }
     .questionBox .questionContainer {
         display: flex;
         flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        height: auto !important;
+        border-radius: 6px 6px 0px 0px;
     }
 }
